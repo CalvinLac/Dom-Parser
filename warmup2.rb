@@ -3,7 +3,7 @@ Node=Struct.new(:tag,:text,:class,:id,:children,:parent)
 
 class Reader 
   def initialize
-  	@document=File.readlines('main.html')
+  	@document=File.readlines('warmuphtml.html')
     build_tree
   end
   attr_accessor :root
@@ -39,7 +39,7 @@ class Reader
     test_node=Node.new(nil,nil,nil,nil,nil,nil)
     if line.include?('<')
       matching_tag = line.match (/[<](.+?)[ ]/)
-      test_node.tag=matching_tag
+      test_node.tag=matching_tag.to_s
     end
 
     if line.include?('class')
@@ -49,7 +49,7 @@ class Reader
 
     if line.include?('id')
     matching_id = line.match (/id=['"](.+?)['"]/)
-    test_node.id=matching_id
+    test_node.id=matching_id.to_s
     end
 
     if !line.include?('<')
